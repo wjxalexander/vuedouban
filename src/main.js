@@ -4,6 +4,9 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import $ from 'jquery'
+import { InfiniteScroll } from 'mint-ui';
+Vue.use(InfiniteScroll);
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

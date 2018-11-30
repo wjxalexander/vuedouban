@@ -1,61 +1,75 @@
 <template>
- <div class="topMovies container">
-   <ul class="topmovies-container">
-     <li v-for="(item,index) in topMoviesList" class='item' :key="index">
-       <a :href="item.alt">
-         <div class="image">
-           <img :src="item.images.small" alt="">
-         </div>
-         <div class="detail">
-           <h2>{{item.title}}</h2>
-         </div>
-       </a>
-     </li>
-   </ul>
- </div>
+  <div class="topMovies container">
+    <ul
+      class="topmovies-container"
+      v-infinite-scroll="getList"
+      infinite-scroll-disabled="isLoading"
+      infinite-scroll-distance="50"
+    >
+      <li v-for="(item,index) in topMoviesList" class="item" :key="index">
+        <a :href="item.alt">
+          <div class="image">
+            <img :src="item.images.small" alt>
+          </div>
+          <div class="detail">
+            <h2>{{item.title}}</h2>
+          </div>
+        </a>
+      </li>
+    </ul>
+    <p class = "bottom" v-if="allLoaded">我是有底线的</p>
+  </div>
 </template>
 
 <script>
 export default {
-  name: 'top250',
-  data () {
+  name: "top250",
+  data() {
     return {
       topMoviesList: null,
       index: 0,
       isLoading: false,
       isLoaded: false,
-      allLoaded: false,
-    }
+      allLoaded: false
+    };
   },
-  created(){
-    this.getList()
+  created() {
+    this.getList();
   },
-  methods:{
-    getList(){
-      if(this.isLoading) return;
+  methods: {
+    getList() {
+      if (this.isLoading||this.allLoaded) return;
       this.isLoading = true;
       $.ajax({
-      url: 'https://api.douban.com/v2/movie/top250',
-      data: {
-      start: this.index||0
-    },
-      dataType: 'jsonp'
-    }).done(res=>{
-      console.log(res)
-      this.topMoviesList = res.subjects
-      this.index += 20
-      if(this.index >= res.total){
-        this.allLoaded = true;
-      }
-    })
+        url: "https://api.douban.com/v2/movie/top250",
+        data: {
+          start: this.index || 0
+        },
+        dataType: "jsonp"
+      }).done(res => {
+        console.log(res);
+        if(!this.topMoviesList){
+         this.topMoviesList = res.subjects;
+        }else{
+          this.topMoviesList = this.topMoviesList.concat(res.subjects)
+        }
+        this.index += 20;
+        if (this.index >= res.total) {
+          this.isLoading = true;
+          this.allLoaded = true;
+        }
+      }).always(()=>{
+        this.isLoading = false
+      });
     }
   }
-}
+};
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h1, h2 {
+h1,
+h2 {
   font-weight: normal;
 }
 ul {
@@ -69,4 +83,13 @@ li {
 a {
   color: #42b983;
 }
+.bottom{
+  text-align: center;
+  font-size: 18px;
+  color: #ccc;
+}
+.topMovies .topmovies-container .item img{
+  width: 120px;
+}
+
 </style>
