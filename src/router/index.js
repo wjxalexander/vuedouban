@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from 'components/index'
-
+import CurrentMovies from 'components/currentmovies'
 Vue.use(Router)
 
 export default new Router({
@@ -14,6 +14,11 @@ export default new Router({
       path: '/topmovies',
       name: 'index',
       component: Index
+    },
+    {
+      path: '/intheater',
+      name: 'intheater',
+      component: CurrentMovies
     }
   ],
   scrollBehavior (to, from, savedPosition) {

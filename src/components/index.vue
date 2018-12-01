@@ -1,10 +1,10 @@
 <template>
-  <div class="topMovies container">
+  <div class="topmovies container">
     <ul
       class="topmovies-container"
       v-infinite-scroll="getList"
       infinite-scroll-disabled="isLoading"
-      infinite-scroll-distance="50"
+      infinite-scroll-distance="80"
     >
       <li v-for="(item,index) in topMoviesList" class="item" :key="index">
         <a :href="item.alt">
@@ -13,6 +13,24 @@
           </div>
           <div class="detail">
             <h2>{{item.title}}</h2>
+            <div class="extra">
+              <span class="score">{{item.rating.average}}分</span>
+            </div>
+            <div class="extra">
+              <span class="year">{{item.year}}年</span>
+            </div>
+            <div class="extra">
+              导演：
+              <span class= "director"
+              v-for="item in directorList[index]" 
+              >{{item.name}}</span>
+            </div>
+            <div class="extra">
+              演员：
+              <span class= "actor"
+               v-for="item in actorList[index]" 
+              >{{`${item.name} `}}</span>
+              </div>
           </div>
         </a>
       </li>
@@ -30,7 +48,7 @@ export default {
       index: 0,
       isLoading: false,
       isLoaded: false,
-      allLoaded: false
+      allLoaded: false,
     };
   },
   created() {
@@ -61,8 +79,31 @@ export default {
       }).always(()=>{
         this.isLoading = false
       });
+    },
+  },
+  computed:{
+    directorList(){
+      let directorList = []
+      if(this.topMoviesList){
+         this.topMoviesList.forEach(item=>{
+        let directors = item.directors
+        directorList.push(directors)
+      })
+      }
+      return directorList
+    },
+    actorList(){
+      let actorList=[]
+      if(this.topMoviesList){
+        this.topMoviesList.forEach(item=>{
+          let actors = item.casts
+          actorList.push(actors)
+        })
+      }
+      return actorList
     }
-  }
+  },
+ 
 };
 </script>
 
@@ -78,18 +119,36 @@ ul {
 }
 li {
   display: inline-block;
-  margin: 0 10px;
 }
 a {
   color: #42b983;
+  text-decoration: none
+}
+.topmovies{
+  -webkit-overflow-scrolling: touch;
+  overflow: scroll;
+  height: calc(100vh);
 }
 .bottom{
   text-align: center;
   font-size: 18px;
   color: #ccc;
 }
-.topMovies .topmovies-container .item img{
+.topmovies .topmovies-container .item a{
+  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-bottom: 1px solid #ccc;
+}
+.topmovies .topmovies-container .item img{
   width: 120px;
 }
-
+.topmovies .topmovies-container .item{
+  width: 100%;
+}
+.topmovies .topmovies-container .item .detail{
+  flex: 1;
+  padding-left: 15px
+}
 </style>

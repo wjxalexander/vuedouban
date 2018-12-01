@@ -10,11 +10,13 @@
             <span>TOP250</span>
           </router-link>
         </div>
-        <div class="bar america">
+        <div class="bar current">
+        <router-link :to="{'name':'intheater'}"> 
           <span>
             <i class="fas fa-award"></i>
           </span>
           <span>正在热映</span>
+        </router-link>
         </div>
         <div class="bar search">
           <span>
@@ -41,16 +43,16 @@ export default {
   box-sizing: border-box;
 }
 a{
-  text-decoration:none;
+  text-decoration: none;
+  color: #666;
 }
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
   position: relative;
+  width: 100%
 }
 
 .navbar {
