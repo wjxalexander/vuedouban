@@ -61,6 +61,7 @@ a{
   position: fixed;
   width: 100%;
   bottom: 0px;
+  z-index: 10000;
 }
 .navbar .bottom-nav {
   display: flex;
