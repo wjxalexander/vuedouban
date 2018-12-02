@@ -10,10 +10,9 @@ export default {
   props: ["name"]
 };
 </script>
-<style lang="scss" scoped>
-.g-icon {
-  fill: #fff;
-  width: 12px;
-  height: 12px;
+<style scoped>
+.j-icon {
+  width: 1em;
+  height: 1em;
 }
 </style>

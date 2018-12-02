@@ -5,7 +5,7 @@
         <div class="bar topmovies">
           <router-link :to="{'name':'index'}">
             <span>
-              <i class="fas fa-award"></i>
+              <j-icon name='homepage'></j-icon>
             </span>
             <span>TOP250</span>
           </router-link>
@@ -13,16 +13,18 @@
         <div class="bar current">
         <router-link :to="{'name':'intheater'}"> 
           <span>
-            <i class="fas fa-award"></i>
+           <j-icon name='movie'></j-icon>
           </span>
           <span>正在热映</span>
         </router-link>
         </div>
         <div class="bar search">
+          <router-link :to="{'name':'search'}"> 
           <span>
-            <i class="fas fa-search"></i>
+            <j-icon name='search'></j-icon>
           </span>
           <span>搜索</span>
+          </router-link>
         </div>
       </div>
     </footer>
@@ -73,5 +75,12 @@ a{
   width: 20rem;
   flex: 1;
   text-align: center;
+  vertical-align: middle
+}
+.router-link-exact-active{
+  color: red
+}
+.router-link-exact-active .j-icon { 
+  fill: red
 }
 </style>
