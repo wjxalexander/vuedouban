@@ -3,7 +3,7 @@
    <div class="choose">
      <span class="choose-cities">请选择您所在的城市(默认为北京)</span>
      <select class="js-city-selector" v-model='cityName'>
-        <option value="null">选择城市</option>
+        <!-- <option value="null">选择城市</option> -->
         <option :value="p" v-for="p in addressData" >{{p}}</option>
      </select>
      </div> 

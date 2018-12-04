@@ -35,6 +35,11 @@
         </a>
       </li>
     </ul>
+    <div class="loading" v-if="isLoading">
+      <span class="icon">
+        <j-icon name='loading' class="icon-active"></j-icon>
+      </span>
+    </div>
     <p class = "bottom" v-if="allLoaded">我是有底线的</p>
   </div>
 </template>
@@ -150,5 +155,24 @@ a {
 .topmovies .topmovies-container .item .detail{
   flex: 1;
   padding-left: 15px
+}
+@keyframes rotate{
+  from{
+    transform: rotate(360deg);
+  }
+}
+.topmovies .loading{
+  display: flex;
+  text-align: center;
+  justify-content: center
+}
+.topmovies .loading .icon-active{
+  padding: 15px;
+  display: block;
+  text-align: center;
+  animation: rotate linear infinite;
+  fill: #ccc;
+  font-size: 30px;
+  animation-duration: 2s
 }
 </style>
